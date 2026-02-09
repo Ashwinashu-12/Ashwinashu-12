@@ -1,6 +1,6 @@
 ## Hi there 👋 I'm Ashwin Kumar Bhandari 
 # 💫 About Me:
-🔭 I’m currently working on MERN stack based projects<br><br>🤝 I’m looking to collaborate on software engineering projects with other passionate developers<br><br>👐 I’m looking for help with MERN stack and Data Structures & Algorithms (DSA)<br><br>🌱 I’m currently learning MERN and Cloud Technologies<br><br>💬 Ask me about web development, problem-solving, and project building<br><br>⚡ Fun fact: I debug my code more than I write it, but that’s how real learning happens!
+🔭 I’m currently working on Full stack based projects<br><br>🤝 I’m looking to collaborate on software engineering projects with other passionate developers<br><br>👐 I’m looking for help with MERN stack and Data Structures & Algorithms (DSA)<br><br>🌱 I’m currently learning MERN and Cloud Technologies<br><br>💬 Ask me about web development, problem-solving, and project building<br><br>⚡ Fun fact: I debug my code more than I write it, but that’s how real learning happens!
 
 
 ## 🌐 Socials:
