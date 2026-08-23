@@ -1,4 +1,7 @@
 # 👋 Hi, I'm Ashwin Kumar Bhandari
+<div align="center">
+  <img src="./assets/ashwin-ascii.svg" width="420" alt="Ashwin Kumar Bhandari ASCII portrait">
+</div>
 
 ### Computer Science Engineer | Cloud Computing | Full-Stack Development | AI/ML
 
