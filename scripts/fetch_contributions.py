@@ -41,31 +41,28 @@ def fetch_contributions():
     days = []
 
     # ========================================================
-    # Current GitHub contribution calendar
-    #
-    # GitHub now uses:
-    #
-    # <td data-date="YYYY-MM-DD" data-level="0-4">
-    #
-    # instead of the old:
-    #
-    # <rect data-date="..." data-count="...">
-    #
-    # The contribution count is available through the
-    # accessibility/tooltip information associated with the day.
+    # Find contribution calendar cells
     # ========================================================
 
     calendar_days = soup.select(
         "td.ContributionCalendar-day[data-date]"
     )
 
-    # Fallback in case GitHub changes the class name again.
     if not calendar_days:
         calendar_days = soup.select(
-            "[data-date][data-level]"
+            "td[data-date][data-level]"
         )
 
     print(f"Calendar cells found: {len(calendar_days)}")
+
+    if not calendar_days:
+        raise RuntimeError(
+            "Could not find GitHub contribution calendar."
+        )
+
+    # ========================================================
+    # Parse every contribution day
+    # ========================================================
 
     for cell in calendar_days:
 
@@ -82,37 +79,35 @@ def fetch_contributions():
             level = int(
                 cell.get("data-level", "0")
             )
-        except ValueError:
+        except (TypeError, ValueError):
             level = 0
 
         # ----------------------------------------------------
-        # Find contribution count
+        # Find tooltip reference
+        #
+        # GitHub commonly uses:
+        #
+        # <td
+        #   id="contribution-day-component-..."
+        #   data-date="2026-08-23"
+        # >
+        #
+        # <tool-tip for="contribution-day-component-...">
+        #   2 contributions on August 23rd.
+        # </tool-tip>
         # ----------------------------------------------------
 
         count = None
 
-        # Possible direct attributes.
-        for attribute in (
-            "data-count",
-            "data-contribution-count",
-        ):
-            value = cell.get(attribute)
+        cell_id = cell.get("id")
 
-            if value is not None:
-                try:
-                    count = int(value)
-                    break
-                except ValueError:
-                    pass
+        if cell_id:
 
-        # ----------------------------------------------------
-        # Look for GitHub's tooltip/custom element.
-        # ----------------------------------------------------
-
-        if count is None:
-
-            tooltip = cell.find(
-                "tool-tip"
+            tooltip = soup.find(
+                "tool-tip",
+                attrs={
+                    "for": cell_id
+                }
             )
 
             if tooltip:
@@ -122,122 +117,110 @@ def fetch_contributions():
                     strip=True
                 )
 
-                match = re.search(
-                    r"(\d[\d,]*)\s+contribution",
-                    tooltip_text,
-                    re.IGNORECASE,
+                count = extract_count(
+                    tooltip_text
                 )
 
-                if match:
-                    count = int(
-                        match.group(1).replace(",", "")
+        # ----------------------------------------------------
+        # Fallback:
+        # Search all tooltips for the date.
+        # ----------------------------------------------------
+
+        if count is None:
+
+            for tooltip in soup.find_all(
+                "tool-tip"
+            ):
+
+                tooltip_text = tooltip.get_text(
+                    " ",
+                    strip=True
+                )
+
+                if contribution_date in tooltip_text:
+
+                    count = extract_count(
+                        tooltip_text
                     )
 
+                    if count is not None:
+                        break
+
         # ----------------------------------------------------
-        # Look through aria-label/title attributes.
+        # Fallback: title attribute
         # ----------------------------------------------------
 
         if count is None:
 
-            possible_texts = []
+            title = cell.get("title")
 
-            for attribute in (
-                "aria-label",
-                "title",
-            ):
-                value = cell.get(attribute)
+            if title:
 
-                if value:
-                    possible_texts.append(value)
-
-            # Also inspect children.
-            for child in cell.find_all(
-                attrs={
-                    "aria-label": True
-                }
-            ):
-                possible_texts.append(
-                    child.get("aria-label")
+                count = extract_count(
+                    title
                 )
 
-            for child in cell.find_all(
-                attrs={
-                    "title": True
-                }
-            ):
-                possible_texts.append(
-                    child.get("title")
+        # ----------------------------------------------------
+        # Fallback: aria-label
+        # ----------------------------------------------------
+
+        if count is None:
+
+            aria_label = cell.get(
+                "aria-label"
+            )
+
+            if aria_label:
+
+                count = extract_count(
+                    aria_label
                 )
 
-            for text in possible_texts:
+        # ----------------------------------------------------
+        # Fallback: child elements
+        # ----------------------------------------------------
 
-                match = re.search(
-                    r"(\d[\d,]*)\s+contribution",
-                    text,
-                    re.IGNORECASE,
+        if count is None:
+
+            for child in cell.find_all():
+
+                text = child.get_text(
+                    " ",
+                    strip=True
                 )
 
-                if match:
-                    count = int(
-                        match.group(1).replace(",", "")
+                if text:
+
+                    count = extract_count(
+                        text
                     )
-                    break
+
+                    if count is not None:
+                        break
 
         # ----------------------------------------------------
-        # Look at all text inside the cell.
-        # ----------------------------------------------------
-
-        if count is None:
-
-            cell_text = cell.get_text(
-                " ",
-                strip=True
-            )
-
-            match = re.search(
-                r"(\d[\d,]*)\s+contribution",
-                cell_text,
-                re.IGNORECASE,
-            )
-
-            if match:
-                count = int(
-                    match.group(1).replace(",", "")
-                )
-
-        # ----------------------------------------------------
-        # Zero contribution days
+        # Zero contribution
         # ----------------------------------------------------
 
         if count is None:
 
-            # GitHub commonly represents zero contribution
-            # days explicitly in accessibility text.
+            # A level of 0 means no contribution.
+            #
+            # This is safe because GitHub's contribution
+            # calendar uses level 0 for empty days.
 
-            combined_text = " ".join(
-                [
-                    str(cell.get("aria-label", "")),
-                    str(cell.get("title", "")),
-                    cell.get_text(" ", strip=True),
-                ]
-            )
-
-            if re.search(
-                r"no contributions?",
-                combined_text,
-                re.IGNORECASE,
-            ):
+            if level == 0:
                 count = 0
 
         # ----------------------------------------------------
-        # Safety check
+        # Final fallback
         # ----------------------------------------------------
 
         if count is None:
 
             print(
                 f"Warning: Could not determine count "
-                f"for {contribution_date}; using 0."
+                f"for {contribution_date}"
             )
 
             count = 0
@@ -251,29 +234,36 @@ def fetch_contributions():
         )
 
     # ========================================================
-    # Validate data
+    # Remove duplicates
+    # ========================================================
+
+    unique_days = {}
+
+    for day in days:
+
+        unique_days[day["date"]] = day
+
+    days = list(
+        unique_days.values()
+    )
+
+    # ========================================================
+    # Sort oldest → newest
+    # ========================================================
+
+    days.sort(
+        key=lambda item: item["date"]
+    )
+
+    # ========================================================
+    # Validate
     # ========================================================
 
     if not days:
 
         raise RuntimeError(
-            "No contribution data found. "
-            "GitHub may have changed its contribution "
-            "calendar structure."
+            "No contribution days were found."
         )
-
-    # Remove duplicate dates.
-    unique_days = {}
-
-    for day in days:
-        unique_days[day["date"]] = day
-
-    days = list(unique_days.values())
-
-    # Sort oldest → newest.
-    days.sort(
-        key=lambda item: item["date"]
-    )
 
     # ========================================================
     # Total contributions
@@ -285,7 +275,7 @@ def fetch_contributions():
     )
 
     # ========================================================
-    # Create date lookup
+    # Date lookup
     # ========================================================
 
     day_map = {
@@ -309,6 +299,7 @@ def fetch_contributions():
         current_date in day_map
         and day_map[current_date] > 0
     ):
+
         current_streak += 1
 
         current_date -= timedelta(
@@ -357,7 +348,10 @@ def fetch_contributions():
         month = day["date"][:7]
 
         monthly_totals[month] = (
-            monthly_totals.get(month, 0)
+            monthly_totals.get(
+                month,
+                0
+            )
             + day["count"]
         )
 
@@ -390,7 +384,7 @@ def fetch_contributions():
     }
 
     # ========================================================
-    # Create data directory
+    # Create output directory
     # ========================================================
 
     OUTPUT.parent.mkdir(
@@ -415,15 +409,9 @@ def fetch_contributions():
     # ========================================================
 
     print()
-    print(
-        "======================================"
-    )
-    print(
-        " GitHub Contribution Data"
-    )
-    print(
-        "======================================"
-    )
+    print("======================================")
+    print(" GitHub Contribution Data")
+    print("======================================")
 
     print(
         f"Username:            {USERNAME}"
@@ -458,28 +446,71 @@ def fetch_contributions():
         f"Saved to:            {OUTPUT}"
     )
 
-    print(
-        "======================================"
-    )
+    print("======================================")
 
     # ========================================================
-    # Important validation
+    # Final validation
     # ========================================================
 
     if total_contributions == 0:
 
         raise RuntimeError(
-            "Contribution cells were found, "
-            "but all contribution counts are zero. "
-            "GitHub's contribution count markup may "
-            "have changed again."
+            "Contribution data was found, "
+            "but all contribution counts are zero."
         )
 
     print()
     print(
-        "SUCCESS: Contribution counts were "
-        "successfully extracted."
+        "SUCCESS: Real GitHub contribution "
+        "data extracted successfully."
     )
+
+
+# ============================================================
+# Extract contribution count
+# ============================================================
+
+def extract_count(text):
+    """
+    Extract contribution count from GitHub text.
+
+    Examples:
+
+        "1 contribution on August 20th."
+        "5 contributions on August 21st."
+        "No contributions on August 22nd."
+    """
+
+    if not text:
+        return None
+
+    text = text.strip()
+
+    # No contributions
+    if re.search(
+        r"\bno\s+contributions?\b",
+        text,
+        re.IGNORECASE,
+    ):
+        return 0
+
+    # Number of contributions
+    match = re.search(
+        r"(\d[\d,]*)\s+contributions?",
+        text,
+        re.IGNORECASE,
+    )
+
+    if match:
+
+        return int(
+            match.group(1).replace(
+                ",",
+                ""
+            )
+        )
+
+    return None
 
 
 # ============================================================
