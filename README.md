@@ -1,9 +1,22 @@
-# 👋 Hi, I'm Ashwin Kumar Bhandari
 <div align="center">
-  <img src="./assets/ashwin-ascii.svg" width="420" alt="Ashwin Kumar Bhandari ASCII portrait">
+
+<h2><code>ashwin@github ~ $ whoami</code></h2>
+
+<table>
+<tr>
+<td valign="top">
+<img src="./assets/ashwin-ascii.svg" width="370" alt="Ashwin Kumar Bhandari ASCII portrait">
+</td>
+
+<td valign="top">
+<img src="./assets/info-card.svg" width="490" alt="Ashwin Kumar Bhandari developer information card">
+</td>
+</tr>
+</table>
+
 </div>
 
-### Computer Science Engineer | Cloud Computing | Full-Stack Development | AI/ML
+<h3 align="center">Computer Science Engineer · Cloud Computing · Full-Stack Development · AI/ML</h3>
 
 I enjoy building practical software applications, exploring cloud technologies, and solving real-world problems through code.
 
