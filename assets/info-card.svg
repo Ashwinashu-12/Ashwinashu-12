@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="390"
+viewBox="0 0 500 390" role="img"
+aria-label="Ashwin Kumar Bhandari developer information card">
+<rect x="1" y="1" width="498" height="388" rx="14" fill="#0d1117" stroke="#30363d"/>
+<circle cx="22" cy="22" r="5" fill="#ff5f56"/>
+<circle cx="40" cy="22" r="5" fill="#ffbd2e"/>
+<circle cx="58" cy="22" r="5" fill="#27c93f"/>
+<text x="78" y="27" font-family="Courier New, monospace" font-size="13" fill="#8b949e">ashwin@github ~ $ whoami</text>
+<line x1="22" y1="43" x2="478" y2="43" stroke="#30363d"/>
+<style>
+.label {
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  fill: #58a6ff;
+}
+.value {
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  fill: #c9d1d9;
+}
+.prompt {
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  fill: #7ee787;
+}
+</style><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="0.00s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="0.00s" fill="freeze" additive="replace"/>
+<text x="28" y="64" class="label">Name</text>
+<text x="110" y="64" class="value">Ashwin Kumar Bhandari</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="0.18s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="0.18s" fill="freeze" additive="replace"/>
+<text x="28" y="89" class="label">Role</text>
+<text x="110" y="89" class="value">Computer Science Engineer</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="0.36s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="0.36s" fill="freeze" additive="replace"/>
+<text x="28" y="114" class="label">Focus</text>
+<text x="110" y="114" class="value">Full-Stack Development + AI/ML</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="0.54s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="0.54s" fill="freeze" additive="replace"/>
+<text x="28" y="139" class="label">Degree</text>
+<text x="110" y="139" class="value">CSE • Cloud Computing</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="0.90s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="0.90s" fill="freeze" additive="replace"/>
+<text x="28" y="189" class="label">Languages</text>
+<text x="110" y="189" class="value">Python · JavaScript · SQL</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="1.08s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="1.08s" fill="freeze" additive="replace"/>
+<text x="28" y="214" class="label">Frontend</text>
+<text x="110" y="214" class="value">React · Next.js</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="1.26s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="1.26s" fill="freeze" additive="replace"/>
+<text x="28" y="239" class="label">Backend</text>
+<text x="110" y="239" class="value">Node.js · Express</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="1.44s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="1.44s" fill="freeze" additive="replace"/>
+<text x="28" y="264" class="label">Database</text>
+<text x="110" y="264" class="value">MongoDB · MySQL · PostgreSQL</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="1.62s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="1.62s" fill="freeze" additive="replace"/>
+<text x="28" y="289" class="label">Cloud</text>
+<text x="110" y="289" class="value">AWS · Azure</text>
+</g><g opacity="0" transform="translate(0,5)">
+<animate attributeName="opacity" from="0" to="1" dur="0.38s"
+begin="1.98s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate"
+from="0,5" to="0,0" dur="0.38s"
+begin="1.98s" fill="freeze" additive="replace"/>
+<text x="28" y="339" class="label">Current</text>
+<text x="110" y="339" class="value">DSA · Full Stack · Cloud · AI/ML</text>
+</g><text x="28" y="372" class="prompt">▌ profile initialized</text>
+</svg>
