@@ -1,4 +1,5 @@
 import json
+import re
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -27,7 +28,9 @@ def fetch_contributions():
     response = requests.get(
         URL,
         headers={
-            "User-Agent": "Mozilla/5.0"
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            "Accept": "text/html,application/xhtml+xml",
+            "Accept-Language": "en-US,en;q=0.9",
         },
         timeout=30,
     )
@@ -38,24 +41,61 @@ def fetch_contributions():
 
     days = []
 
-    # GitHub's contribution calendar uses SVG rect elements.
-    for rect in soup.select("rect[data-date]"):
+    # --------------------------------------------------------
+    # GitHub contribution calendar
+    #
+    # GitHub has changed the calendar HTML structure over time.
+    # We therefore look for ANY element containing data-date.
+    # --------------------------------------------------------
 
-        contribution_date = rect.get("data-date")
-        count = rect.get("data-count", "0")
-        level = rect.get("data-level", "0")
+    elements = soup.select("[data-date]")
+
+    for element in elements:
+
+        contribution_date = element.get("data-date")
 
         if not contribution_date:
             continue
 
+        # ----------------------------------------------------
+        # Get contribution count
+        # ----------------------------------------------------
+
+        count = element.get("data-count")
+
+        # Some GitHub HTML versions don't provide data-count.
+        # Try aria-label / title as a fallback.
+        if count is None:
+
+            text = element.get("aria-label", "")
+
+            if not text:
+                text = element.get("title", "")
+
+            match = re.search(
+                r"(\d+)\s+contribution",
+                text,
+                re.IGNORECASE,
+            )
+
+            if match:
+                count = match.group(1)
+
+        # Default to zero if count cannot be determined.
         try:
             count = int(count)
-        except ValueError:
+        except (TypeError, ValueError):
             count = 0
+
+        # ----------------------------------------------------
+        # Get contribution level
+        # ----------------------------------------------------
+
+        level = element.get("data-level")
 
         try:
             level = int(level)
-        except ValueError:
+        except (TypeError, ValueError):
             level = 0
 
         days.append(
@@ -66,13 +106,32 @@ def fetch_contributions():
             }
         )
 
+    # --------------------------------------------------------
+    # Remove duplicate dates
+    # --------------------------------------------------------
+
+    unique_days = {}
+
+    for day in days:
+        unique_days[day["date"]] = day
+
+    days = list(unique_days.values())
+
+    # --------------------------------------------------------
+    # Validate
+    # --------------------------------------------------------
+
     if not days:
+        print()
+        print("GitHub response did not contain contribution data.")
+        print("Response URL:", URL)
+        print("Status code:", response.status_code)
+        print()
         raise RuntimeError(
-            "No contribution data found. "
-            "GitHub may have changed its contribution page structure."
+            "No contribution data found in GitHub contribution page."
         )
 
-    # Sort from oldest → newest
+    # Sort oldest → newest
     days.sort(key=lambda item: item["date"])
 
     # ========================================================
@@ -80,7 +139,8 @@ def fetch_contributions():
     # ========================================================
 
     total_contributions = sum(
-        day["count"] for day in days
+        day["count"]
+        for day in days
     )
 
     # ========================================================
@@ -121,7 +181,7 @@ def fetch_contributions():
             streak += 1
             longest_streak = max(
                 longest_streak,
-                streak
+                streak,
             )
         else:
             streak = 0
@@ -132,7 +192,7 @@ def fetch_contributions():
 
     best_day = max(
         days,
-        key=lambda item: item["count"]
+        key=lambda item: item["count"],
     )
 
     # ========================================================
@@ -156,33 +216,27 @@ def fetch_contributions():
 
     data = {
         "username": USERNAME,
-
         "total_contributions": total_contributions,
-
         "current_streak": current_streak,
-
         "longest_streak": longest_streak,
-
         "best_day": best_day,
-
         "monthly_totals": monthly_totals,
-
         "days": days,
     }
 
-    # Create data directory automatically.
+    # Create data directory
     OUTPUT.parent.mkdir(
         parents=True,
-        exist_ok=True
+        exist_ok=True,
     )
 
-    # Save JSON.
+    # Save JSON
     OUTPUT.write_text(
         json.dumps(
             data,
-            indent=2
+            indent=2,
         ),
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
     # ========================================================
