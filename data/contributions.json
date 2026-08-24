@@ -1,11 +1,11 @@
 {
   "username": "Ashwinashu-12",
-  "total_contributions": 99,
-  "current_streak": 1,
+  "total_contributions": 109,
+  "current_streak": 0,
   "longest_streak": 2,
   "best_day": {
-    "date": "2025-08-29",
-    "count": 21,
+    "date": "2026-08-23",
+    "count": 31,
     "level": 4
   },
   "monthly_totals": {
@@ -21,18 +21,18 @@
     "2026-05": 0,
     "2026-06": 0,
     "2026-07": 1,
-    "2026-08": 21
+    "2026-08": 31
   },
   "days": [
     {
       "date": "2025-08-24",
       "count": 12,
-      "level": 4
+      "level": 2
     },
     {
       "date": "2025-08-25",
       "count": 4,
-      "level": 4
+      "level": 1
     },
     {
       "date": "2025-08-26",
@@ -52,7 +52,7 @@
     {
       "date": "2025-08-29",
       "count": 21,
-      "level": 4
+      "level": 3
     },
     {
       "date": "2025-08-30",
@@ -92,7 +92,7 @@
     {
       "date": "2025-09-06",
       "count": 5,
-      "level": 4
+      "level": 1
     },
     {
       "date": "2025-09-07",
@@ -217,7 +217,7 @@
     {
       "date": "2025-10-01",
       "count": 2,
-      "level": 2
+      "level": 1
     },
     {
       "date": "2025-10-02",
@@ -687,7 +687,7 @@
     {
       "date": "2026-01-03",
       "count": 2,
-      "level": 2
+      "level": 1
     },
     {
       "date": "2026-01-04",
@@ -792,7 +792,7 @@
     {
       "date": "2026-01-24",
       "count": 3,
-      "level": 3
+      "level": 1
     },
     {
       "date": "2026-01-25",
@@ -842,12 +842,12 @@
     {
       "date": "2026-02-03",
       "count": 3,
-      "level": 3
+      "level": 1
     },
     {
       "date": "2026-02-04",
       "count": 5,
-      "level": 4
+      "level": 1
     },
     {
       "date": "2026-02-05",
@@ -962,7 +962,7 @@
     {
       "date": "2026-02-27",
       "count": 3,
-      "level": 3
+      "level": 1
     },
     {
       "date": "2026-02-28",
@@ -1222,7 +1222,7 @@
     {
       "date": "2026-04-20",
       "count": 5,
-      "level": 4
+      "level": 1
     },
     {
       "date": "2026-04-21",
@@ -1242,7 +1242,7 @@
     {
       "date": "2026-04-24",
       "count": 9,
-      "level": 4
+      "level": 2
     },
     {
       "date": "2026-04-25",
@@ -1846,8 +1846,13 @@
     },
     {
       "date": "2026-08-23",
-      "count": 21,
+      "count": 31,
       "level": 4
+    },
+    {
+      "date": "2026-08-24",
+      "count": 0,
+      "level": 0
     }
   ]
 }

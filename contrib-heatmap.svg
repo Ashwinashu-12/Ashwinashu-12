@@ -130,7 +130,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#39d353"
+        fill="#006d32"
     />
 </g>
 
@@ -146,7 +146,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#39d353"
+        fill="#0e4429"
     />
 </g>
 
@@ -210,7 +210,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#39d353"
+        fill="#26a641"
     />
 </g>
 
@@ -338,7 +338,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#39d353"
+        fill="#0e4429"
     />
 </g>
 
@@ -738,7 +738,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#006d32"
+        fill="#0e4429"
     />
 </g>
 
@@ -2242,7 +2242,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#006d32"
+        fill="#0e4429"
     />
 </g>
 
@@ -2578,7 +2578,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#26a641"
+        fill="#0e4429"
     />
 </g>
 
@@ -2738,7 +2738,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#26a641"
+        fill="#0e4429"
     />
 </g>
 
@@ -2754,7 +2754,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#39d353"
+        fill="#0e4429"
     />
 </g>
 
@@ -3122,7 +3122,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#26a641"
+        fill="#0e4429"
     />
 </g>
 
@@ -3954,7 +3954,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#39d353"
+        fill="#0e4429"
     />
 </g>
 
@@ -4018,7 +4018,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
         width="12"
         height="12"
         rx="3"
-        fill="#39d353"
+        fill="#006d32"
     />
 </g>
 
@@ -5946,7 +5946,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
     class="cell"
     style="animation-delay:2.912s"
 >
-    <title>21 contributions on 2026-08-23</title>
+    <title>31 contributions on 2026-08-23</title>
 
     <rect
         x="825"
@@ -6120,7 +6120,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
     y="171"
     class="footer"
 >
-    99 contributions
+    109 contributions
 </text>
 
 <text
@@ -6128,7 +6128,7 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
     y="171"
     class="footer"
 >
-    Current streak: 1 days
+    Current streak: 0 days
 </text>
 
 <text
@@ -6144,6 +6144,6 @@ aria-label="GitHub contribution heatmap for Ashwinashu-12">
     y="171"
     class="footer"
 >
-    Best day: 21
+    Best day: 31
 </text>
 </svg>
